@@ -31,44 +31,93 @@
     </div>
 </form>
 <h4>RESULT FOR :</h4>
-<table calss="table table-striped">
-    <tr>
-        <th>Court Type</th>
-        <th>Court Location</th>
-        <th>Chamber ID</th>
-        <th>Hearing Date</th>
-        <th>Hearing Time</th>
-    </tr>
-    <tr>
-        <td>@ViewBag.datas[0].courtcase.courtType</td>
-        <td>@ViewBag.datas[0].courtcase.courtLocation</td>
-        <td>@ViewBag.datas[0].courtcase.chamberID</td>
-        <td>@ViewBag.datas[0].courtcase.hearingDateTime</td>
-        <td>@ViewBag.datas[0].courtcase.hearingDateTime</td>
-    </tr>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Court Type</th>
+            <th>Court Location</th>
+            <th>Chamber ID</th>
+            <th>Hearing Date</th>
+            <th>Hearing Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@ViewBag.datas[0].courtcase.courtType</td>
+            <td>@ViewBag.datas[0].courtcase.courtLocation</td>
+            <td>@ViewBag.datas[0].courtcase.chamberID</td>
+            <td>@ViewBag.datas[0].courtcase.hearingDateTime</td>
+            <td>@ViewBag.datas[0].courtcase.hearingDateTime</td>
+        </tr>
+    </tbody>
 </table>
 <p><hr /></p>
-<table class="table table-striped">
-    <tr>
-        <th>First name of lawyer</th>
-        <th>Last name of lawyer</th>
-        <th>E-mail</th>
-        <th>Fixed phone number</th>
-        <th>Cell phone number</th>
-        <th>Preferences for receiving requests</th>
-        <th>Additional comments</th>
-    </tr>
-
-@foreach (var item in ViewBag.datas) {
-    <tr>
-        <td>@item.lawyer.name</td>
-        <td>@item.lawyer.sureName</td>
-        <td>@item.lawyer.email</td>
-        <td>@item.lawyer.phone</td>
-        <td>@item.lawyer.phone</td>
-        <td>@item.lawyer.email</td>
-        <td>Please do not send me requests after 8:00 pm</td>
-    </tr>
-}
-
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>E-mail</th>
+            <th>Fixed phone number</th>
+            <th>Cell phone number</th>
+            <th>Preferences for receiving requests</th>
+            <th>Additional comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.datas)
+        {
+            <tr>
+                <td>@item.lawyer.name</td>
+                <td>@item.lawyer.sureName</td>
+                @{
+                    string[] emailArr = splitEmail(@item.lawyer.email);
+                }
+                <td>@emailArr[0]</td>
+                @{
+                    string[] phoneArr = splitPhone(@item.lawyer.phone);
+                }
+                @if (phoneArr.Length > 0)
+                {
+                    <td>@phoneArr[0].Replace("Tel.", "")</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (phoneArr.Length > 1)
+                {
+                    <td>@phoneArr[1].Replace("Tel.", "")</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (emailArr.Length > 1)
+                {
+                    <td>@emailArr[1]</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                <td>Please do not send me requests after 8:00 pm</td>
+            </tr>
+        }
+    </tbody>
 </table>
+@{
+    string[] splitEmail(string origin_email)
+    {
+        string temp = origin_email.Replace("[", "").Replace("]", "").Replace(" ", "").Replace("\"", "");
+        string[] result = temp.Split(',');
+        return result;
+    }
+
+    string[] splitPhone(string origin_phone)
+    {
+        string temp = origin_phone.Replace("[", "").Replace("]", "").Replace(" ", "").Replace("\"", "");
+        string[] result = temp.Split(',');
+        return result;
+    }
+}

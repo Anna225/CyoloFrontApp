@@ -19,11 +19,11 @@
             @Html.TextBox("date", "2022-10-03", new { @class = "form-control" })
         </div>
         <div class="form-group col-md-4">
-            <a class="btn btn-warning form-control" href="@Url.Action($"Uploads/allmyagendas")">Upload Agendas</a>
+            <a class="btn btn-warning form-control" href="@Url.Action($"Uploads")">Upload Agendas</a>
         </div>
     </div>
 </form>
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th scope="col">CourtCaseNo</th>
@@ -48,8 +48,26 @@
                 <td>@item.courtcase.hearingDateTime</td>
                 <td>@item.courtcase.hearingType</td>
                 <td>
-                    <a class="btn btn-success" href="@Url.Action($"ViewLawyers/{@item.courtcase.courtCaseNo}")">Available</a>
-                    <a class="btn btn-info" href="@Url.Action($"ViewLawyers/{@item.courtcase.courtCaseNo}")">Request</a>
+                    @Html.ActionLink(
+                        "Available",                                                  // linkText
+                        "ViewLawyers",                                              // actionName
+                        "CourtCase",                                              // routeValues
+                        new
+                        {                                                           // htmlAttributes
+                            courtCaseNo = @item.courtcase.courtCaseNo
+                        },
+                        new { @class = "btn btn-success" }
+                    )
+                    @Html.ActionLink(
+                        "Request",                                                  // linkText
+                        "ViewLawyers",                                              // actionName
+                        "CourtCase",                                              // routeValues
+                        new
+                        {                                                           // htmlAttributes
+                            courtCaseNo = @item.courtcase.courtCaseNo
+                        },
+                        new { @class = "btn btn-info" }
+                    )
                 </td>
             </tr>
         }

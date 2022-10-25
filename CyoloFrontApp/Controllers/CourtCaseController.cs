@@ -24,10 +24,9 @@ namespace CyoloFrontApp.Controllers
             return View();
         }
 
-        // GET: ViewLawyers/{courtCaseNo}
+        // GET: ViewLawyers
         public async Task<ActionResult> Viewlawyers(string courtCaseNo)
         {
-            courtCaseNo = "2022-941-A";
             LawyerService ls = new LawyerService();
             var datas = await ls.GetLawyersByCourtcaseno(courtCaseNo);
             ViewBag.datas = datas;
