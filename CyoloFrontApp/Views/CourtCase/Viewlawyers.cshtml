@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CyoloFrontApp.Models.Lawyer>
+
+@{
+    ViewBag.Title = "Viewlawyers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>WELCOME NADIA OUZOUBAIR</h2>
+<form>
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.Label("lawyernamefor", "Court Type")
+            @Html.TextBox("lawyername", "NADIA OUZOUBAIR", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("datefor", "Court Location")
+            @Html.TextBox("date", "2022-10-03", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("datefor", "Chamber ID")
+            @Html.TextBox("date", "2022-10-03", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("datefor", "Hearing Date")
+            @Html.TextBox("date", "2022-10-03", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("datefor", "hearing Time")
+            @Html.TextBox("date", "2022-10-03", new { @class = "form-control" })
+        </div>
+    </div>
+</form>
+<h4>RESULT FOR :</h4>
+<table calss="table table-striped">
+    <tr>
+        <th>Court Type</th>
+        <th>Court Location</th>
+        <th>Chamber ID</th>
+        <th>Hearing Date</th>
+        <th>Hearing Time</th>
+    </tr>
+    <tr>
+        <td>@ViewBag.datas[0].courtcase.courtType</td>
+        <td>@ViewBag.datas[0].courtcase.courtLocation</td>
+        <td>@ViewBag.datas[0].courtcase.chamberID</td>
+        <td>@ViewBag.datas[0].courtcase.hearingDateTime</td>
+        <td>@ViewBag.datas[0].courtcase.hearingDateTime</td>
+    </tr>
+</table>
+<p><hr /></p>
+<table class="table table-striped">
+    <tr>
+        <th>First name of lawyer</th>
+        <th>Last name of lawyer</th>
+        <th>E-mail</th>
+        <th>Fixed phone number</th>
+        <th>Cell phone number</th>
+        <th>Preferences for receiving requests</th>
+        <th>Additional comments</th>
+    </tr>
+
+@foreach (var item in ViewBag.datas) {
+    <tr>
+        <td>@item.lawyer.name</td>
+        <td>@item.lawyer.sureName</td>
+        <td>@item.lawyer.email</td>
+        <td>@item.lawyer.phone</td>
+        <td>@item.lawyer.phone</td>
+        <td>@item.lawyer.email</td>
+        <td>Please do not send me requests after 8:00 pm</td>
+    </tr>
+}
+
+</table>

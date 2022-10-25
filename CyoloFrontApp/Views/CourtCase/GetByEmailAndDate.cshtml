@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CyoloFrontApp.Models.CourtCaseAgenda>
+
+@{
+    ViewBag.Title = "GetByEmailAndDate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>WELCOME NADIA OUZOUBAIR </h2>
+
+<p>Any suggestions for an upgrade? Please <a href="https://create@cyolo.com">contact us</a></p>
+<form>
+    <div class="row">
+        <div class="form-group col-md-4">
+            @Html.Label("lawyernamefor", "Lawyer's Full Name")
+            @Html.TextBox("lawyername", "NADIA OUZOUBAIR", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("datefor", "Date")
+            @Html.TextBox("date", "2022-10-03", new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <a class="btn btn-warning form-control" href="@Url.Action($"Uploads/allmyagendas")">Upload Agendas</a>
+        </div>
+    </div>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">CourtCaseNo</th>
+            <th scope="col">CourtType</th>
+            <th scope="col">CourtLocation</th>
+            <th scope="col">ChamberID</th>
+            <th scope="col">HearingDate</th>
+            <th scope="col">HearingTime</th>
+            <th scope="col">HearingType</th>
+            <th scope="col">Offer on request representaion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.datas)
+        {
+            <tr>
+                <td>@item.courtcase.courtCaseNo</td>
+                <td>@item.courtcase.courtType</td>
+                <td>@item.courtcase.courtLocation</td>
+                <td>@item.courtcase.chamberID</td>
+                <td>@item.courtcase.hearingDateTime</td>
+                <td>@item.courtcase.hearingDateTime</td>
+                <td>@item.courtcase.hearingType</td>
+                <td>
+                    <a class="btn btn-success" href="@Url.Action($"ViewLawyers/{@item.courtcase.courtCaseNo}")">Available</a>
+                    <a class="btn btn-info" href="@Url.Action($"ViewLawyers/{@item.courtcase.courtCaseNo}")">Request</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
